@@ -18,6 +18,7 @@ contract ERC20 {
     symbol = _symbol;
     totalSupply = _totalSupply;
     balances[msg.sender] = totalSupply;
+    emit Transfer(address(0), msg.sender, totalSupply);
   }
 
   function balanceOf(address _owner) external view returns (uint256) {
