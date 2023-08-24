@@ -10183,12 +10183,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xe74DbA2F952FbF192Bab5fF911d794e775BF55ad",
-      "transactionHash": "0x4fc2eebf7fb1df797ad23880b865ea0444109e3e12e4199ecb75865788263129"
+      "address": "0x943EdC6D67a8fC4316990c276Ecf1d0D1a3da2F8",
+      "transactionHash": "0x2e478a312b1ebc9dd1c89339ad00b30b9506ba893eb80f185ebdcf038e5879bb"
     }
   },
   "schemaVersion": "3.4.15",
-  "updatedAt": "2023-08-17T00:34:52.038Z",
+  "updatedAt": "2023-08-23T14:17:25.696Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
