@@ -1,5 +1,5 @@
-// SPDX-License-Identifier: MIT 
-pragma solidity ^0.8.4;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4; 
 
 contract ERC20 {
   string public name;
@@ -21,7 +21,7 @@ contract ERC20 {
     emit Transfer(address(0), msg.sender, totalSupply);
   }
 
-  function balanceOf(address _owner) external view returns (uint256) {
+  function balanceOf(address _owner) external view returns (uint256){
     return balances[_owner];
   }
 
@@ -34,8 +34,8 @@ contract ERC20 {
     return true;
   }
 
-  function transferFrom(address _from, address _to, uint256 _value) external returns (bool) {
-    require(allowances[_from][msg.sender] >= _value, "Transfer amount exceeds allowance");
+  function transferFrom(address _from, address _to, uint256 _value) external returns (bool){
+    require(allowances[_from][msg.sender] >= _value, "Transfer amount exceeds allownace");
     _transfer(_from, _to, _value);
     allowances[_from][msg.sender] -= _value;
     return true;
@@ -54,4 +54,5 @@ contract ERC20 {
     balances[_to] += _value;
     emit Transfer(_from, _to, _value);
   }
+
 }
