@@ -14,11 +14,9 @@ $(document).on('click', ".dropdown-menu li a", function () {
   let img = element[0].firstElementChild.outerHTML;
   let text = $(this).text();
   token = text.replace(/\s/g, "");
-  console.log("tokenname!!", token);
   if(user) {
     switch(token) {
       case "DAI":
-        console.log("abi!!", abi.token);
         tokenInst = new web3.eth.Contract(abi.token, daiAddr, { from: user });
         break;
       case "LINK":
@@ -29,7 +27,6 @@ $(document).on('click', ".dropdown-menu li a", function () {
         break;
     }
   }
-  console.log("token:", tokenInst);
   $(".input-group .btn").html(img + text);
   $(".input-group .btn").css("color", "#fff");
   $(".input-group .btn").css("font-size", "large");
@@ -136,7 +133,6 @@ async function updateOutput(input) {
 }
 
 async function checkBalance(input) {
-  console.log("methods",tokenInst);
   const balanceRaw = buyMode
     ? await web3.eth.getBalance(user)
     : await tokenInst.methods.balanceOf(user).call();
@@ -158,7 +154,16 @@ function buyToken() {
     .buyToken(tokenAddr, finalInput, finalOutput)
     .send({ value: finalInput })
     .then((receipt) => {
-      console.log(receipt);
+      const eventData = receipt.events.buy.returnValues;
+      const amountDisplay = parseFloat(web3.utils.fromWei(eventData._amount, "ether"));
+      const costDisplay = parseFloat(web3.utils.fromWei(eventData._cost, "ether"));
+      const _tokenAddr = eventData._tokenAddr;
+      alert(`
+        Swap successful! \n
+        Token address: ${_tokenAddr} \n
+        Amount: ${amountDisplay.toFixed(7)} ${token} \n
+        Cost: ${costDisplay.toFixed(7)} ETH
+      `)
       resolve();
     })
     .catch((err) => reject(err));
@@ -180,7 +185,16 @@ async function sellToken() {
     const sellTx = await dexInst.methods
     .sellToken(tokenAddr, finalInput, finalOutput)
     .send();
-    console.log(sellTx);
+    const eventData = sellTx.events.sell.returnValues;
+    const amountDisplay = parseFloat(web3.utils.fromWei(eventData._amount, "ether"));
+    const costDisplay = parseFloat(web3.utils.fromWei(eventData._cost, "ether"));
+    const _tokenAddr = eventData._tokenAddr;
+    alert(`
+      Swap successful! \n
+      Token address: ${_tokenAddr} \n
+      Amount: ${amountDisplay.toFixed(7)} ETH \n
+      Cost: ${costDisplay.toFixed(7)} ${token}
+    `)
   }catch(err){
     throw(err);
   }
